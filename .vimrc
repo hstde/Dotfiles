@@ -5,10 +5,6 @@ set mouse=a
 
 noremap <C-Left> :bprev<CR>
 noremap <C-Right> :bnext<CR>
-noremap <S-Up> :wincmd k<CR>
-noremap <S-Down> :wincmd j<CR>
-noremap <S-Left> :wincmd h<CR>
-noremap <S-Right> :wincmd l<CR>
 
 colorscheme elflord
 filetype indent on
