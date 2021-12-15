@@ -32,8 +32,13 @@ set showmode
 set showcmd
 set history=1000
 set nowrap
-
+set t_Co=256
+let g:Powerline_symbols = "fancy"
+ 
 set laststatus=2
+set showtabline=2
+set list
+set listchars=tab:\|\ ,trail:·
 
 function! GitBranch()
     let b:branchValid=1
@@ -59,21 +64,60 @@ function! HasBranch()
     return strlen(l:branchname) > 0
 endfunction
 
-hi User1 ctermfg=none ctermbg=darkgray cterm=reverse
+function SetupStatusLine()
+    hi User1 ctermfg=none ctermbg=darkgray cterm=reverse
 
-set statusline=
-set statusline+=%#CursorColumn#
-set statusline+=%{StatuslineGit()}
-set statusline+=%1*%{HasBranch()?'':''}
-set statusline+=%#StatusLine#
-set statusline+=\ %.40F\ 
-set statusline+=%{&modified?'🖉\ ':''}
-set statusline+=%{&readonly?'\ ':''}
-set statusline+=%=
-set statusline+=\ %{&filetype!=#''?&filetype:'none'}\ 
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ 
-set statusline+=\ %{&fileformat}\ 
-set statusline+=%1*
-set statusline+=%#CursorColumn#
-set statusline+=\ %l:%c\ \ %L
-set statusline+=\ 
+    set statusline=
+    set statusline+=%#CursorColumn#
+    set statusline+=%{StatuslineGit()}
+    set statusline+=%1*%{HasBranch()?'':''}
+    set statusline+=%#StatusLine#
+    set statusline+=\ %.40F\ 
+    set statusline+=%{&modified?'🖉\ ':''}
+    set statusline+=%{&readonly?'\ ':''}
+    set statusline+=%=
+    set statusline+=\ %{&filetype!=#''?&filetype:'none'}\ 
+    set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ 
+    set statusline+=\ %{&fileformat}\ 
+    set statusline+=%1*
+    set statusline+=%#CursorColumn#
+    set statusline+=\ %l:%c\ \ %L
+    set statusline+=\ 
+endfunction
+
+function! GetTabLine()
+    let s = ''
+    let tabcounter=0
+    for i in range(bufnr('$'))
+        let tabnbr = i + 1
+        if !buflisted(tabnbr)
+            continue
+        endif
+
+        let tabcounter = tabcounter + 1
+        if tabnbr == bufnr()
+            let s .= '%#TabLineSel#'
+        else
+            let s .= '%#TabLine#'
+        endif
+        let s .= '%' . (tabnbr) . 'T'
+        let s .= ' %{GetTabLabel(' . (tabnbr) . ',' . (tabcounter) . ')} '
+    endfor
+    let s .= '%#TabLineFill#%T'
+    if tabpagenr('$') > 1
+        let s .= '%=%#TabLine#%999Xclose'
+    endif
+    return s
+endfunction
+
+function! GetTabLabel(n, c)
+    return a:c . ":" . bufname(a:n)
+endfunction
+
+function SetupTabLine()
+    set tabline=
+    set tabline=%!GetTabLine()
+endfunction
+
+call SetupStatusLine()
+call SetupTabLine()
