@@ -10,7 +10,7 @@ fi
 alias usage='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
 alias dir="command ls -l -h"
 alias ls="ls -h --color --group-directories-first"
-alias ll="ls -alF"
+alias ll="ls -al"
 alias la="ls -A"
 alias l="ls -CF"
 alias fd="fd-find"
@@ -21,9 +21,17 @@ alias ..="cd .."
 # Powerline
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
+elif [ "${TERM}" == "xterm-256color" ] && [ -f .simple_powerline.sh ]; then
+    source .simple_powerline.sh
 fi
 
 # added by pipx (https://github.com/pipxproject/pipx)
-export PATH="/home/hstde/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 function fn { find . -name "\"$1\"" -print; }
+
+if [ -d "$HOME/.nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
