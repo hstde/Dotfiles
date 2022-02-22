@@ -35,4 +35,4 @@ function parse_git_branch() {
 	return $exit_code
 }
 
-export PS1="${USERC} \u \`parse_git_branch\`${DIRC} \w\ \`nonzero_return\`${NC} "
+export PS1="${USERC} \u \`parse_git_branch\`${DIRC} \w \`nonzero_return\`${NC} "
