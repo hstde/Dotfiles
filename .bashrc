@@ -27,6 +27,7 @@ fi
 
 # added by pipx (https://github.com/pipxproject/pipx)
 export PATH="$HOME/.local/bin:$PATH"
+export GIT_EDITOR=vim
 
 function fn { find . -name "\"$1\"" -print; }
 
