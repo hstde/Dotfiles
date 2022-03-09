@@ -1,3 +1,16 @@
+case $- in
+    *i*) ;;
+    *) return;;
+esac
+
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+shopt -s checkwinsize
+
+
 # enable bash completion in interactive shells
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -17,6 +30,10 @@ alias fd="fd-find"
 alias free="free -hw"
 alias cd..="cd .."
 alias ..="cd .."
+
+alias grep="grep --color"
+alias fgrep="fgrep --color"
+alias egrep="egrep --color"
 
 # Powerline
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
