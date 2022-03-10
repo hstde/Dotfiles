@@ -38,8 +38,8 @@ alias egrep="egrep --color"
 # Powerline
 if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
-elif [ "${TERM}" == "xterm-256color" ] && [ -f ~/.simple_powerline.sh ]; then
-    source ~/.simple_powerline.sh
+#elif [ "${TERM}" == "xterm-256color" ] && [ -f ~/.simple_powerline.sh ]; then
+#    source ~/.simple_powerline.sh
 fi
 
 # added by pipx (https://github.com/pipxproject/pipx)
