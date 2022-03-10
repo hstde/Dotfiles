@@ -18,21 +18,21 @@ BRANCHC="$(tput setaf $LIGHTGRAY; tput setab $DARKGRAY)"
 DIRC="$(tput setaf $LIGHTGRAY; tput setab $GRAY)"
 
 function nonzero_return() {
-	RETVAL=$?
-	[ $RETVAL -ne 0 ] && echo "$ERRORC $RETVAL "
+    RETVAL=$?
+    [ $RETVAL -ne 0 ] && echo "$ERRORC $RETVAL "
 }
 
 # get current branch in git repo
 function parse_git_branch() {
-	exit_code=$?
+    exit_code=$?
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${BRANCH}" == "" ]
+    if [ ! "${BRANCH}" == "" ]
     then
-		echo "${BRANCHC} ${BR} ${BRANCH} "
-	else
-		echo ""
-	fi
-	return $exit_code
+        echo "${BRANCHC} ${BR} ${BRANCH} "
+    else
+        echo ""
+    fi
+    return $exit_code
 }
 
 export PS1="${USERC} \u \`parse_git_branch\`${DIRC} \w \`nonzero_return\`${NC} "
