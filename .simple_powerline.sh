@@ -7,19 +7,40 @@ LIGHTBLUE=31
 B=''
 BR=''
 
-ERRORC="$(tput setaf $WHITE; tput setab $RED)"
-NC='\e[0m'
-if [ $EUID == 0 ]; then
-    USERC="$(tput setaf $WHITE; tput setab $RED)"
-else
-    USERC="$(tput setaf $WHITE; tput setab $LIGHTBLUE)"
-fi
-BRANCHC="$(tput setaf $LIGHTGRAY; tput setab $DARKGRAY)"
-DIRC="$(tput setaf $LIGHTGRAY; tput setab $GRAY)"
+NC='\[\e[0m\]'
+
+function error_color() {
+    tput setaf $WHITE
+    tput setab $RED
+}
+
+function dir_color() {
+    tput setaf $LIGHTGRAY
+    tput setab $GRAY
+}
+
+function user_color() {
+    if [ $EUID == 0 ]
+    then
+        tput setab $RED
+    else
+        tput setab $LIGHTBLUE
+    fi
+    tput setaf $WHITE
+}
+
+function branch_color() {
+    tput setaf $LIGHTGRAY
+    tput setab $DARKGRAY
+}
 
 function nonzero_return() {
     RETVAL=$?
-    [ $RETVAL -ne 0 ] && echo "$ERRORC $RETVAL "
+    if [ $RETVAL -ne 0 ]
+    then
+        error_color
+        echo " $RETVAL "
+    fi
 }
 
 # get current branch in git repo
@@ -28,11 +49,23 @@ function parse_git_branch() {
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
     if [ ! "${BRANCH}" == "" ]
     then
-        echo "${BRANCHC} ${BR} ${BRANCH} "
-    else
-        echo ""
+        branch_color
+        echo " ${BR} ${BRANCH} "
     fi
     return $exit_code
 }
 
-export PS1="${USERC} \u \`parse_git_branch\`${DIRC} \w \`nonzero_return\`${NC} "
+function get_cwd() {
+    exit_code=$?
+    dir_color
+    return $exit_code
+}
+
+function get_user() {
+    exit_code=$?
+    user_color
+    echo " ${USER} "
+    return $exit_code
+}
+
+export PS1="\`get_user\`\`parse_git_branch\`\`get_cwd\` \w \`nonzero_return\`${NC} "
