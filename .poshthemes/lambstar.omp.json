@@ -31,7 +31,7 @@
         {
           "foreground": "#C678DD",
           "properties": {
-            "fetch_status": true
+            "fetch_status": false
           },
           "style": "plain",
           "template": "<#ffffff>on</> {{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
@@ -53,7 +53,7 @@
             "threshold": 500
           },
           "style": "plain",
-          "template": "{{ .FormattedMs }}",
+          "template": "{{ .FormattedMs }} ",
           "type": "executiontime"
         },
         {
