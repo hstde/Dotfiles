@@ -1,5 +1,4 @@
 #!/bin/bash
-export POSH_THEME=~/.poshthemes/lambstar.omp.json
 export POWERLINE_COMMAND="oh-my-posh"
 export CONDA_PROMPT_MODIFIER=false
 omp_start_time=""
