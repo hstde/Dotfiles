@@ -38,15 +38,6 @@
           "type": "git"
         },
         {
-          "foreground": "#98C379",
-          "properties": {
-            "fetch_version": true
-          },
-          "style": "plain",
-          "template": "<#ffffff>via</> \ue781 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
-          "type": "node"
-        },
-        {
           "foreground": "#ffffff",
           "properties": {
             "style": "austin",
@@ -65,7 +56,7 @@
             "always_enabled": true
           },
           "style": "plain",
-          "template": "{{ if gt .Code 0 }}\uf00d{{ else }}\uf42e{{ end }} ",
+          "template": "{{ if gt .Code 0 }}\uf00d {{ .Code }}{{ else }}\uf42e{{ end }} ",
           "type": "exit"
         }
       ],
