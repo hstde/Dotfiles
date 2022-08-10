@@ -22,7 +22,8 @@
             "folder_icon": "\u2026",
             "folder_separator_icon": " \ue285 ",
             "home_icon": "\uf7db",
-            "style": "mixed"
+            "style": "agnoster_short",
+            "max_depth": 3
           },
           "style": "plain",
           "template": "{{ .Path }} ",
