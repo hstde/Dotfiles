@@ -36,7 +36,11 @@ alias fgrep="fgrep --color"
 alias egrep="egrep --color"
 
 # Powerline
-if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+export POSH_THEME=~/.poshthemes/lambstar.omp.json
+
+if [ -f ~/.poshline.sh ] && [ -f /usr/local/bin/oh-my-posh ] && [ -f $POSH_THEME ]; then
+    source ~/.poshline.sh
+elif [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
     source /usr/share/powerline/bindings/bash/powerline.sh
 #elif [ "${TERM}" == "xterm-256color" ] && [ -f ~/.simple_powerline.sh ]; then
 #    source ~/.simple_powerline.sh
