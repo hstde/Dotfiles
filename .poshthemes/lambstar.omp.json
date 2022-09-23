@@ -18,6 +18,12 @@
         },
         {
           "foreground": "#55B9C4",
+          "type": "os",
+          "style": "plain",
+          "template": "{{ .Icon }} \ue285 "
+        },
+        {
+          "foreground": "#55B9C4",
           "properties": {
             "folder_icon": "\u2026",
             "folder_separator_icon": " \ue285 ",
